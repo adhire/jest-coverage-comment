@@ -72,6 +72,7 @@ async function main(): Promise<void> {
       hideSummary: false,
       removeLinksToFiles: false,
       removeLinksToLines: false,
+      threshold: '25',
       changedFiles: {
         all: ['src/router.js', 'src/service.js', 'src/utils/config.js'],
       },
