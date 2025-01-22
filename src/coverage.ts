@@ -201,6 +201,7 @@ export function getCoverageReport(options: Options): CoverageReport {
 
   try {
     if (!coverageFile) {
+      core.info('No coverage file provided');
       return { ...DEFAULT_COVERAGE, coverageHtml: '' }
     }
 
