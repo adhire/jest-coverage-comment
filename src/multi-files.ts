@@ -13,7 +13,7 @@ export function getMultipleReport(options: Options): string | null {
 
   try {
     const lineReports = multipleFiles.map(parseLine).filter(notNull)
-    if (!lineReports.length) {
+    if (!lineReports?.length) {
       core.error(
         'Generating summary report for multiple files. No files are provided'
       )

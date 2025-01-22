@@ -15,7 +15,7 @@ export async function createComment(
     const octokit = getOctokit(options.token)
     const issue_number = payload.pull_request ? payload.pull_request.number : 0
 
-    if (body.length > MAX_COMMENT_LENGTH) {
+    if (body?.length > MAX_COMMENT_LENGTH) {
       const warningsArr = [
         `Your comment is too long (maximum is ${MAX_COMMENT_LENGTH} characters), coverage report will not be added.`,
         'Try one/some of the following:',

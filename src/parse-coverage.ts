@@ -13,7 +13,7 @@ function arrToLine(arr: string[]): CoverageLine {
     branch: Number(arr[2]),
     funcs: Number(arr[3]),
     lines: Number(arr[4]),
-    uncoveredLines: arr[5].length ? arr[5].split(',') : null,
+    uncoveredLines: arr[5]?.length ? arr[5]?.split(',') : null,
   } as CoverageLine
 }
 
@@ -69,7 +69,7 @@ export function parseCoverage(content: string): CoverageLine[] {
     if (
       line.includes(BUNCH_OF_EQUALS) ||
       line.includes(BUNCH_OF_DASHES) ||
-      !line.trim().length ||
+      !line?.trim()?.length ||
       line.includes('Packages in scope') ||
       line.includes('Running test') ||
       line.includes('Remote caching ') ||
@@ -101,14 +101,14 @@ export function parseCoverage(content: string): CoverageLine[] {
     const [fileName] = parsedLine
 
     if (isCurrentFolder && !isTotalLine(parsedLine)) {
-      if (folders.length) {
+      if (folders?.length) {
         folders.pop()
       }
 
       folders.push(fileName)
     }
 
-    if (!isCurrentFolder && folders.length) {
+    if (!isCurrentFolder && folders?.length) {
       parsedLine[0] = `${folders.at(-1)}/${parsedLine.at(0)}`.replace('//', '/')
     }
 

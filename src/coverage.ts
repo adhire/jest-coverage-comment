@@ -80,13 +80,13 @@ function toTable(coverageArr: CoverageLine[], options: Options): string {
           return true
         }
 
-        return arr.length > 1
+        return arr?.length > 1
       })
       .map((line) => toRow(line, isFile(line), options))
     rows.push(...files)
   }
 
-  const hasLines = rows.length > 1
+  const hasLines = rows?.length > 1
   const isFilesChanged =
     reportOnlyChangedFiles && !hasLines
       ? '<i>report-only-changed-files is enabled. No files were changed in this commit :)</i>'
@@ -140,7 +140,7 @@ function toFileNameTd(
   const relative = line.file.replace(prefix, '')
   const href = `${serverUrl}/${repository}/blob/${commit}/${coveragePathPrefix}${relative}`
   const parts = relative.split('/')
-  const last = parts[parts.length - 1]
+  const last = parts[parts?.length - 1]
   const space = indent ? '&nbsp; &nbsp;' : ''
 
   return removeLinksToFiles
@@ -206,6 +206,9 @@ export function getCoverageReport(options: Options): CoverageReport {
 
     const txtContent = getContentFile(coverageFile)
     const coverageArr = parseCoverage(txtContent)
+
+    core.info(`Coverage report: ${coverageFile}`)
+    core.info(`Coverage content: ${txtContent}`)
 
     if (coverageArr) {
       const coverage = getCoverage(coverageArr)

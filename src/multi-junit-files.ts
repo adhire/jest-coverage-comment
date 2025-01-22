@@ -15,7 +15,7 @@ export async function getMultipleJunitReport(
 
   try {
     const lineReports = multipleJunitFiles.map(parseLine).filter(notNull)
-    if (!lineReports.length) {
+    if (!lineReports?.length) {
       core.error(
         'Generating report for multiple JUnit files. No files are provided'
       )
