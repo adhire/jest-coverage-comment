@@ -69,7 +69,7 @@ export function summaryToMarkdown(
 
   if (summaryTitle) {
     return `
-      ## ${summaryTitle}\n\n ### Coverage Required: ${threshold}%. \n\n${table}
+      ## ${summaryTitle} - ${threshold}40% required\n\n${table}
     `
   }
 
