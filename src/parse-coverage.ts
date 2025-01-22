@@ -55,6 +55,7 @@ export function parseCoverage(content: string): CoverageLine[] {
 
   for (const line of arr.slice(startFrom)) {
     if (
+      line.includes('Jest: ') ||
       line.includes('coverage threshold for ') ||
       line.includes('Test Suites: ') ||
       line.includes('Snapshots: ') ||
