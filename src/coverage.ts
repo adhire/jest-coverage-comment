@@ -201,22 +201,22 @@ export function getCoverageReport(options: Options): CoverageReport {
 
   try {
     if (!coverageFile) {
-      core.info('No coverage file provided');
+      core.debug('No coverage file provided');
       return { ...DEFAULT_COVERAGE, coverageHtml: '' }
     }
 
     const txtContent = getContentFile(coverageFile)
     const coverageArr = parseCoverage(txtContent)
 
-    core.info(`Coverage report: ${coverageFile}`)
-    core.info(`Coverage content: ${txtContent}`)
+    core.debug(`Coverage report: ${coverageFile}`)
+    core.debug(`Coverage content: ${txtContent}`)
 
     if (coverageArr) {
       const coverage = getCoverage(coverageArr)
       const coverageHtml = coverageToMarkdown(coverageArr, options)
 
-      core.info(`Coverage: ${coverage}`);
-      core.info(`Coverage html: ${coverageHtml}`);
+      core.debug(`Coverage: ${coverage}`);
+      core.debug(`Coverage html: ${coverageHtml}`);
 
 
       return { ...coverage, coverageHtml }
