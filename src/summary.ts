@@ -68,9 +68,7 @@ export function summaryToMarkdown(
   }
 
   if (summaryTitle) {
-    return `
-      ## ${summaryTitle} - ${threshold}40% required\n\n${table}
-    `
+    return `## ${summaryTitle} - ${threshold}% required\n\n${table}`
   }
 
   return table
