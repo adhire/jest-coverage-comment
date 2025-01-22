@@ -62,7 +62,8 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes(BUNCH_OF_EQUALS) ||
       line.includes(BUNCH_OF_DASHES) ||
       !line.trim().length ||
-      line.startsWith('Done in ')
+      line.startsWith('Done in ') ||
+      line.startsWith('infi Visit https:://yarnpkg.com/en/docs/cli/run for documentation about this command.')
     ) {
       continue
     }
