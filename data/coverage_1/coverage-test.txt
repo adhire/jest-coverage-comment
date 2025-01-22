@@ -1,0 +1,49 @@
+yarn run v1.22.22
+$ turbo run test --cache-dir=.turbo --filter=@iron/iron -- --coverage --ci -w=2 --reporters=default --reporters=github-actions --silent --changedSince 72a5b5982614c381a6a22dd13651b154abf08a50 '--coverageThreshold={ "**/{modules,regions}/**/*.{tsx,jsx,ts,js}": { "statements": 80, "branches": 80, "functions": 80, "lines": 80 } }' --coverage
+• Packages in scope: @iron/iron
+• Running test in 1 packages
+• Remote caching disabled
+@iron/iron:test
+cache miss, executing 693ba7c381ae3038
+yarn run v1.22.22
+$ ci=true jest --passWithNoTests --coverage --ci -w=2 --reporters=default --reporters=github-actions --silent --changedSince 72a5b5982614c381a6a22dd13651b154abf08a50 '--coverageThreshold={ "**/{modules,regions}/**/*.{tsx,jsx,ts,js}": { "statements": 80, "branches": 80, "functions": 80, "lines": 80 } }' --coverage
+Browserslist: caniuse-lite is outdated. Please run:
+npx update-browserslist-db@latest
+Why you should do it regularly: https://github.com/browserslist/update-db#readme
+PASS Client src/regions/checkout/pages/Checkout/components/BuyingPageSwitcher/__tests__/BuyingPageSwitcher.test.tsx (13.557 s)
+PASS Client src/regions/checkout/pages/Checkout/components/BidPage/hooks/__tests__/useBidPage.test.tsx (13.874 s)
+PASS Client src/regions/checkout/utils/__tests__/testUtil.test.ts
+PASS Client src/regions/checkout/pages/Checkout/components/BidPage/hooks/useBidPage/__tests__/isBidGreaterThanLowestAsk.test.tsx
+=============================== Coverage summary ===============================
+Statements : 65.99% ( 262/397 )
+Branches : 47.76% ( 128/268 )
+Functions : 54% ( 27/50 )
+Lines : 66.07% ( 259/392 )
+================================================================================
+----------------------------------------------------|---------|----------|---------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+File | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+----------------------------------------------------|---------|----------|---------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+All files | 65.99 | 47.76 | 54 | 66.07 |
+  pages/Checkout/components/BidPage/hooks/useBidPage | 65.63 | 47.92 | 53.06 | 65.79 |
+    useBidPage.tsx | 65.63 | 47.92 | 53.06 | 65.79 | 225-226,230,291,295,305-349,373-380,390-391,395-397,401-403,408-413,440-445,475,492,495,497,499,556,580-595,600-601,654,670,679-681,686-699,704-707,712-721,726-731,736-739,744-750,769,783,826-871,890-907,951-965,1057,1102,1130,1210
+  utils | 80 | 33.33 | 100 | 77.77 |
+  testUtil.ts | 80 | 33.33 | 100 | 77.77 | 7,11
+----------------------------------------------------|---------|----------|---------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Jest: "/home/runner/work/iron/iron/apps/iron/src/regions/checkout/pages/Checkout/components/BidPage/hooks/useBidPage/useBidPage.tsx" coverage threshold for statements (80%) not met: 65.63%
+Jest: "/home/runner/work/iron/iron/apps/iron/src/regions/checkout/pages/Checkout/components/BidPage/hooks/useBidPage/useBidPage.tsx" coverage threshold for branches (80%) not met: 47.92%
+Jest: "/home/runner/work/iron/iron/apps/iron/src/regions/checkout/pages/Checkout/components/BidPage/hooks/useBidPage/useBidPage.tsx" coverage threshold for lines (80%) not met: 65.79%
+Jest: "/home/runner/work/iron/iron/apps/iron/src/regions/checkout/pages/Checkout/components/BidPage/hooks/useBidPage/useBidPage.tsx" coverage threshold for functions (80%) not met: 53.06%
+Jest: "/home/runner/work/iron/iron/apps/iron/src/regions/checkout/utils/testUtil.ts" coverage threshold for branches (80%) not met: 33.33%
+Jest: "/home/runner/work/iron/iron/apps/iron/src/regions/checkout/utils/testUtil.ts" coverage threshold for lines (80%) not met: 77.77%
+Test Suites: 4 passed, 4 total
+Tests: 39 passed, 39 total
+Snapshots: 0 total
+Time: 18.627 s
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+Error: command finished with error: command (/home/runner/work/iron/iron/apps/iron) /tmp/yarn--1737555986197-0.5060673508366438/yarn run test --coverage --ci -w=2 --reporters=default --reporters=github-actions --silent --changedSince 72a5b5982614c381a6a22dd13651b154abf08a50 --coverageThreshold={ "**/{modules,regions}/**/*.{tsx,jsx,ts,js}": { "statements": 80, "branches": 80, "functions": 80, "lines": 80 } } --coverage exited (1)
+Tasks: 0 successful, 1 total
+Cached: 0 cached, 1 total
+Time: 23.36s
+Failed: @iron/iron#test
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

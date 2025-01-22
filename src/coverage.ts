@@ -215,6 +215,10 @@ export function getCoverageReport(options: Options): CoverageReport {
       const coverage = getCoverage(coverageArr)
       const coverageHtml = coverageToMarkdown(coverageArr, options)
 
+      core.info(`Coverage: ${coverage}`);
+      core.info(`Coverage html: ${coverageHtml}`);
+
+
       return { ...coverage, coverageHtml }
     }
   } catch (error) {
