@@ -318,21 +318,15 @@ function makeFolders(coverageArr, options) {
 /** Return full html coverage report and coverage percentage. */
 function getCoverageReport(options) {
     const { coverageFile } = options;
-    core.debug(`Coverage file: ${coverageFile}`);
     try {
         if (!coverageFile) {
-            core.debug('No coverage file provided');
             return { ...DEFAULT_COVERAGE, coverageHtml: '' };
         }
         const txtContent = (0, utils_1.getContentFile)(coverageFile);
         const coverageArr = (0, parse_coverage_1.parseCoverage)(txtContent);
-        core.debug(`Coverage report: ${coverageFile}`);
-        core.debug(`Coverage content: ${txtContent}`);
         if (coverageArr) {
             const coverage = getCoverage(coverageArr);
             const coverageHtml = coverageToMarkdown(coverageArr, options);
-            core.debug(`Coverage: ${coverage}`);
-            core.debug(`Coverage html: ${coverageHtml}`);
             return { ...coverage, coverageHtml };
         }
     }
@@ -523,6 +517,7 @@ async function main() {
             required: false,
         });
         const summaryTitle = core.getInput('summary-title', { required: false });
+        const threshold = core.getInput('threshold', { required: true });
         const summaryFile = core.getInput('coverage-summary-path', {
             required: false,
         });
@@ -584,6 +579,7 @@ async function main() {
             reportOnlyChangedFiles,
             multipleFiles,
             multipleJunitFiles,
+            threshold
         };
         if (eventName === 'pull_request' && payload) {
             options.commit = payload.pull_request?.head.sha;
@@ -988,29 +984,6 @@ exports.getMultipleJunitReport = getMultipleJunitReport;
 
 "use strict";
 
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -1018,7 +991,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.exportedForTesting = exports.parseCoverage = exports.isFolder = exports.isFile = exports.getTotalLine = void 0;
 const constants_1 = __nccwpck_require__(5105);
 const strip_ansi_1 = __importDefault(__nccwpck_require__(5591));
-const core = __importStar(__nccwpck_require__(2186));
 function parseLine(line) {
     return line.split('|').map((l) => l.replace('%', '').replace('#s', '').trim());
 }
@@ -1069,7 +1041,6 @@ function parseCoverage(content) {
             line.includes('Time: ') ||
             line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.') ||
             line.startsWith('error Command failed with exit code 1.')) {
-            core.debug(`Break due to: ${line}`);
             break;
         }
         if (line.includes(constants_1.BUNCH_OF_EQUALS) ||
@@ -1097,7 +1068,6 @@ function parseCoverage(content) {
             line.includes('Functions') ||
             line.includes('Lines') ||
             line.startsWith('Done in ')) {
-            core.debug(`Continue due to: ${line}`);
             continue;
         }
         const parsedLine = parseLine(line);
@@ -1195,7 +1165,7 @@ function lineSummaryToTd(line) {
 }
 /** Convert summary to md. */
 function summaryToMarkdown(summary, options, withoutHeader = false) {
-    const { repository, commit, badgeTitle, serverUrl = 'https://github.com', summaryTitle, } = options;
+    const { repository, commit, badgeTitle, serverUrl = 'https://github.com', summaryTitle, threshold } = options;
     const { statements, functions, branches } = summary;
     const { color, coverage } = getCoverage(summary);
     const readmeHref = `${serverUrl}/${repository}/blob/${commit}/README.md`;
@@ -1211,7 +1181,9 @@ function summaryToMarkdown(summary, options, withoutHeader = false) {
         return tableBody;
     }
     if (summaryTitle) {
-        return `## ${summaryTitle}\n\n${table}`;
+        return `
+      ## ${summaryTitle}\n\n ### Coverage Required: ${threshold}%. \n\n${table}
+    `;
     }
     return table;
 }
