@@ -70,6 +70,7 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes(BUNCH_OF_EQUALS) ||
       line.includes(BUNCH_OF_DASHES) ||
       !line?.trim()?.length ||
+      line.includes('turbo run test') ||
       line.includes('Packages in scope') ||
       line.includes('Running test') ||
       line.includes('Remote caching ') ||
