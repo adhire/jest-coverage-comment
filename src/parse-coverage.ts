@@ -1,6 +1,7 @@
 import { BUNCH_OF_DASHES, BUNCH_OF_EQUALS } from './constants'
 import { CoverageLine } from './types'
 import stripAnsi from 'strip-ansi'
+import * as core from '@actions/core'
 
 function parseLine(line: string): string[] {
   return line.split('|').map((l) => l.replace('%', '').replace('#s', '').trim())
@@ -63,6 +64,7 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.') ||
       line.startsWith('error Command failed with exit code 1.')
     ) {
+      core.debug(`Break due to: ${line}`)
       break
     }
 
@@ -93,6 +95,7 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes('Lines') ||
       line.startsWith('Done in ')
     ) {
+      core.debug(`Continue due to: ${line}`)
       continue
     }
 

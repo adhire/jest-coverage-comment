@@ -199,6 +199,8 @@ function makeFolders(
 export function getCoverageReport(options: Options): CoverageReport {
   const { coverageFile } = options
 
+  core.debug(`Coverage file: ${coverageFile}`)
+  
   try {
     if (!coverageFile) {
       core.debug('No coverage file provided');
