@@ -54,7 +54,13 @@ export function parseCoverage(content: string): CoverageLine[] {
   const startFrom = arr.findIndex((l) => l.includes(BUNCH_OF_DASHES))
 
   for (const line of arr.slice(startFrom)) {
-    if (line.includes('Coverage summary')) {
+    if (
+      line.includes('coverage threshold for ') ||
+      line.includes('Test Suites: ') ||
+      line.includes('Snapshots: ') ||
+      line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.') ||
+      line.startsWith('error Command failed with exit code 1.')
+    ) {
       break
     }
 
@@ -63,9 +69,25 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes(BUNCH_OF_DASHES) ||
       !line.trim().length ||
       line.startsWith('Done in ') ||
+      line.startsWith('PASS Client') ||
+      line.startsWith('PASS Server') ||
       line.includes('coverage threshold for ') ||
-      line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.') ||
-      line.startsWith('error Command failed with exit code 1.')
+      line.includes('Packages in scope') ||
+      line.includes('Running test in') ||
+      line.includes('Remote caching ') ||
+      line.includes('cache miss') ||
+      line.includes('Coverage summary') ||
+      line.includes('Why you should do it') ||
+      line.includes('npx update-browserslist-db@latest') ||
+      line.includes('Browserslist: caniuse-lite is outdated. Please run:') ||
+      line.includes('$ ci=true jest --passWithNoTests --coverage') ||
+      line.includes('yarn run') ||
+      line.includes('Statements') ||
+      line.includes('Branches') ||
+      line.includes('Functions') ||
+      line.includes('Lines') ||
+      line.includes('$ ci=true') ||
+      line.includes('iron:test')
     ) {
       continue
     }
