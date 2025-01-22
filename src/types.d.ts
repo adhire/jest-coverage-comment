@@ -25,6 +25,7 @@ export interface Options {
   changedFiles?: ChangedFiles | null
   multipleFiles?: string[]
   multipleJunitFiles?: string[]
+  threshold?: string
 }
 
 export interface ChangedFiles {

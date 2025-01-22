@@ -46,6 +46,7 @@ export function summaryToMarkdown(
     badgeTitle,
     serverUrl = 'https://github.com',
     summaryTitle,
+    threshold
   } = options
   const { statements, functions, branches } = summary
   const { color, coverage } = getCoverage(summary)
@@ -67,7 +68,9 @@ export function summaryToMarkdown(
   }
 
   if (summaryTitle) {
-    return `## ${summaryTitle}\n\n${table}`
+    return `
+      ## ${summaryTitle}\n\n ### Coverage Required: ${threshold}%. \n\n${table}
+    `
   }
 
   return table

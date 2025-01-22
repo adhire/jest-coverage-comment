@@ -198,28 +198,18 @@ function makeFolders(
 /** Return full html coverage report and coverage percentage. */
 export function getCoverageReport(options: Options): CoverageReport {
   const { coverageFile } = options
-
-  core.debug(`Coverage file: ${coverageFile}`)
   
   try {
     if (!coverageFile) {
-      core.debug('No coverage file provided');
       return { ...DEFAULT_COVERAGE, coverageHtml: '' }
     }
 
     const txtContent = getContentFile(coverageFile)
     const coverageArr = parseCoverage(txtContent)
 
-    core.debug(`Coverage report: ${coverageFile}`)
-    core.debug(`Coverage content: ${txtContent}`)
-
     if (coverageArr) {
       const coverage = getCoverage(coverageArr)
       const coverageHtml = coverageToMarkdown(coverageArr, options)
-
-      core.debug(`Coverage: ${coverage}`);
-      core.debug(`Coverage html: ${coverageHtml}`);
-
 
       return { ...coverage, coverageHtml }
     }

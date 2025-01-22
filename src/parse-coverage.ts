@@ -53,8 +53,6 @@ export function parseCoverage(content: string): CoverageLine[] {
   const result: CoverageLine[] = []
   const folders = []
   const startFrom = arr.findIndex((l) => l.includes(BUNCH_OF_DASHES))
-  core.debug(`Start from: ${startFrom}`)
-  core.debug(`Arr: ${JSON.stringify(arr)}`)
 
   for (const line of arr.slice(startFrom)) {
     if (
@@ -66,7 +64,6 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.') ||
       line.startsWith('error Command failed with exit code 1.')
     ) {
-      core.debug(`Break due to: ${line}`)
       break
     }
 
@@ -97,23 +94,16 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes('Lines') ||
       line.startsWith('Done in ')
     ) {
-      core.debug(`Continue due to: ${line}`)
       continue
     }
 
     const parsedLine = parseLine(line)
-    core.debug(`Parsed line: ${JSON.stringify(parsedLine)}`)
     const isCurrentFolder = isFolderLine(parsedLine)
-    core.debug(`Is current folder: ${isCurrentFolder}`) 
     const isCurrentFile = isFileLine(parsedLine)
-    core.debug(`Is current file: ${isCurrentFile}`)
     const [fileName] = parsedLine
-    core.debug(`File name: ${fileName}`)
 
     if (isCurrentFolder && !isTotalLine(parsedLine)) {
-      core.debug('current folder and not total line')
       if (folders?.length) {
-        core.debug('current folder and folders length')
         folders.pop()
       }
 
@@ -121,18 +111,14 @@ export function parseCoverage(content: string): CoverageLine[] {
     }
 
     if (!isCurrentFolder && folders?.length) {
-      core.debug('not current folder and folders length')
       parsedLine[0] = `${folders.at(-1)}/${parsedLine.at(0)}`.replace('//', '/')
     }
 
     if (isCurrentFolder || isCurrentFile) {
-      core.debug('current folder or file')
       result.push(arrToLine(parsedLine))
     }
   }
-
-  core.debug(`Parsed coverage: ${JSON.stringify(result)}`)
-
+  
   return result
 }
 

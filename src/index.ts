@@ -25,6 +25,7 @@ async function main(): Promise<void> {
       required: false,
     })
     const summaryTitle = core.getInput('summary-title', { required: false })
+    const threshold = core.getInput('threshold', { required: true })
     const summaryFile = core.getInput('coverage-summary-path', {
       required: false,
     })
@@ -95,6 +96,7 @@ async function main(): Promise<void> {
       reportOnlyChangedFiles,
       multipleFiles,
       multipleJunitFiles,
+      threshold
     }
 
     if (eventName === 'pull_request' && payload) {
