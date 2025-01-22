@@ -63,7 +63,9 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes(BUNCH_OF_DASHES) ||
       !line.trim().length ||
       line.startsWith('Done in ') ||
-      line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.')
+      line.includes('coverage threshold for ') ||
+      line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.') ||
+      line.startsWith('error Command failed with exit code 1.')
     ) {
       continue
     }
