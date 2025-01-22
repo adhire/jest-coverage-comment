@@ -58,6 +58,7 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes('coverage threshold for ') ||
       line.includes('Test Suites: ') ||
       line.includes('Snapshots: ') ||
+      line.includes('Time: ') ||
       line.startsWith('info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.') ||
       line.startsWith('error Command failed with exit code 1.')
     ) {
@@ -68,26 +69,27 @@ export function parseCoverage(content: string): CoverageLine[] {
       line.includes(BUNCH_OF_EQUALS) ||
       line.includes(BUNCH_OF_DASHES) ||
       !line.trim().length ||
-      line.startsWith('Done in ') ||
+      line.includes('Packages in scope') ||
+      line.includes('Running test') ||
+      line.includes('Remote caching ') ||
+      line.includes('iron:test') ||
+      line.includes('cache miss') ||
+      line.includes('cache hit') ||
+      line.includes('yarn run') ||
+      line.includes('$ ci=true jest') ||
+      line.includes('Browserslist: caniuse-lite is outdated. Please run:') ||
+      line.includes('npx update-browserslist-db@latest') ||
+      line.includes('Why you should do it') ||
       line.startsWith('PASS Client') ||
       line.startsWith('PASS Server') ||
-      line.includes('coverage threshold for ') ||
-      line.includes('Packages in scope') ||
-      line.includes('Running test in') ||
-      line.includes('Remote caching ') ||
-      line.includes('cache miss') ||
+      line.startsWith('FAIL Client') ||
+      line.startsWith('FAIL Server') ||
       line.includes('Coverage summary') ||
-      line.includes('Why you should do it') ||
-      line.includes('npx update-browserslist-db@latest') ||
-      line.includes('Browserslist: caniuse-lite is outdated. Please run:') ||
-      line.includes('$ ci=true jest --passWithNoTests --coverage') ||
-      line.includes('yarn run') ||
       line.includes('Statements') ||
       line.includes('Branches') ||
       line.includes('Functions') ||
       line.includes('Lines') ||
-      line.includes('$ ci=true') ||
-      line.includes('iron:test')
+      line.startsWith('Done in ')
     ) {
       continue
     }
